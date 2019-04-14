@@ -3,6 +3,7 @@ package xiaomo.com.mymqttdemo;
 import android.app.Application;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import xiaomo.com.mymqttdemo.interfaces.Imanager;
 import xiaomo.com.mymqttdemo.interfaces.OnMqttAndroidConnectListener;
@@ -106,6 +107,10 @@ public class MqttManager implements Imanager {
      */
     @Override
     public void sendMsg(String topic, String message) {
+        if (!isConnected()) {
+            Toast.makeText(MqttManager.mApp.getApplicationContext(), "还未建立连接", Toast.LENGTH_SHORT).show();
+            return;
+        }
         mMqttAndroidConnect.sendMsg(topic, message);
     }
 
